@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="ISO-8859-1">
+      <title> Astral </title>
+      <link rel="icon" href="astralLogo.jpg" type="image" sizes="16x16">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+   
+	  <style>
+		#intro {  
+		    display: flex;
+		    flex-flow: row wrap;
+		    align-items: center;
+		    text-indent: 30%;
+		    position: fixed;
+		    width: 100%;
+		    background-color: #ffffff;
+		    z-index: 1000;
+		    top: 0;
+		    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+		}
+		
+		
+		
+		
+		#Apod { 
+			text-align: center;
+		    width: 100vmax;
+		    background: #003366;
+		    color: #ffffff;
+		    margin: 5px 0 32px 0;
+		    padding-top: 10px;
+		}
+		
+		[type="date"] {
+		    background:#ecf0f1 
+		    url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+		    color: #95a5a6;
+		    font-family: "Helvetica", arial, sans-serif;
+		    font-size: 18px;
+		    border:1px solid #ecf0f1;
+		    padding:5px;
+		    display: inline-block !important;
+		    visibility: visible !important;
+		    cursor:pointer;
+		}
+		[type="date"]::-webkit-inner-spin-button {
+		    cursor:pointer;
+		}
+		[type="date"]::-webkit-calendar-picker-indicator {
+			opacity: 0;
+		    cursor:pointer;
+		}
+		
+		
+		
+		#last{
+			display: flex;
+			align-items: center;
+		    width: 100%;
+		    background-color: #ffffff;
+		    bottom: 0;
+		    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+		}
+		.clickme {
+		    background-color: #003366;
+		    padding: 8px 20px;
+		    text-decoration:none;
+		    font-weight:bold;
+		    border-radius:15px;
+		    color: #ffffff;
+		    cursor:pointer;
+		}
+		.clickme:hover {
+			background:#001e3d;
+			padding: 8px 20px;
+			text-decoration:none;
+			font-weight:bold;
+			color: #7f99b2;
+		
+		}
+		.clickme:focus {
+			background:#301934;
+		}
+		
+	  </style>
+   
+   </head>
+   <body>
+      <div id = "intro" >
+         <img src="astralLogo.jpg" width="70" height="70" >
+         <h1> Astral</h1>
+      </div>
+      <br><br><br><br>
+      <div id = "Apod" >
+         <h2 style = "font-size: xx-large"> Astronomy Picture of the Day (APOD) </h2>
+         <p style = "font-size: medium">  Astronomy Picture of the Day (APOD) is originated, written, coordinated, and edited since 1995 by Robert Nemiroff and Jerry Bonnell. The APOD archive contains the largest collection of annotated astronomical images on the internet.</p>
+         <br>
+      </div>
+      <br>
+      <div id = "SelectDate" class="ml-5">
+         <input id="DateSelector" type="date"/>
+         <button id="Submit" class="clickme" >Submit</button>
+      </div>
+      <div id="apod" ></div>
+      <div id = "last">
+		<h1 style="margin-right:50px;" class="ml-5">Project By :- </h1>
+		<a href="https://github.com/SaloniRaj" class="clickme" target="_blank">Saloni Raj</a>
+	 </div>
+      <script>
+         $(() =>{
+         	$("#Submit").click(() => {
+         		$.get("http://localhost:8080/apod?date=" + $("#DateSelector").val(), function( htmlStr ) {
+         			console.log(htmlStr);
+         			$("#apod").html(htmlStr);
+         		});
+         	});
+         	document.getElementById("DateSelector").value = `${(new Date).getUTCFullYear().toString().padStart(4, '0')}-${(new Date).getUTCMonth().toString().padStart(2, '0')}-${(new Date).getUTCDate().toString().padStart(2, '0')}`;
+         	$("#Submit").click()
+         });
+      </script>
+   </body>
+</html>
